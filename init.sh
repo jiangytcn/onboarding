@@ -54,5 +54,5 @@ install_kube
 export HELM_INSTALL_DIR=$HOME/bin
 install_helm
 install_jx
-popd ~/tmp/onboarding
+popd
 rm -rf ~/tmp/onboarding
