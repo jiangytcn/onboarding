@@ -44,6 +44,10 @@ install_jx() {
     jx version --no-verify=true -n
 }
 
+install_nvm() {
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
+}
+
 rm -rf ~/tmp/onboarding
 mkdir -p ~/tmp/onboarding
 [ ! -d $HOME/bin ] && $(mkdir -p $HOME/bin)
@@ -54,5 +58,6 @@ install_kube
 export HELM_INSTALL_DIR=$HOME/bin
 install_helm
 install_jx
+install_nvm
 popd
 rm -rf ~/tmp/onboarding
