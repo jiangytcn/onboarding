@@ -45,7 +45,15 @@ install_jx() {
 }
 
 install_nvm() {
-    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
+    if nvm --version >/dev/null 2>&1; then
+        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
+    fi
+}
+
+setup_gh_pages() {
+    nvm install stable --tls
+    nvm use stable
+    npm install -g hexo-cli
 }
 
 rm -rf ~/tmp/onboarding
@@ -59,5 +67,8 @@ export HELM_INSTALL_DIR=$HOME/bin
 install_helm
 install_jx
 install_nvm
+setup_gh_pages
 popd
 rm -rf ~/tmp/onboarding
+
+echo "reload the terminal session with 'exec -l $SHELL'"
