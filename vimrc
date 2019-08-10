@@ -126,6 +126,10 @@ Plug 'Konfekt/FastFold'
 " my own vim setting
 Plug 'jiangytcn/vim-setting'
 
+" vim header setting
+Plug 'alpertuna/vim-header'                                                                                                                                                                                                                                                                                                         
+
+
 
 "*****************************************************************************
 "*****************************************************************************
@@ -675,3 +679,8 @@ if &diff | set foldmethod=diff | else | set foldmethod=syntax | endif
 set foldlevel=2
 set foldopen=block,hor,tag,percent,mark,quickfix
 set foldnestmax=20
+
+" file header setting
+let g:header_field_author = 'Jiang Yitao'
+let g:header_field_author_email = 'jiangyt.cn#gmail.com'                                                                                                           
+nnoremap <silent> <F9> :AddHeader<CR>
