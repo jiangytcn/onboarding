@@ -1,3 +1,8 @@
+" File              : .vimrc
+" Author            : Jiang Yitao <jiangyt.cn#gmail.com>
+" Date              : 01.11.2020
+" Last Modified Date: 01.11.2020
+" Last Modified By  : Jiang Yitao <jiangyt.cn#gmail.com>
 " vim-bootstrap b990cad
 
 "*****************************************************************************
@@ -593,10 +598,12 @@ augroup END
 " vim-python
 augroup vimrc-python
   autocmd!
-  autocmd FileType python setlocal expandtab shiftwidth=4 tabstop=8 colorcolumn=79
-      \ formatoptions+=croq softtabstop=4
+  "autocmd FileType python setlocal expandtab shiftwidth=4 tabstop=8 colorcolumn=79
+  autocmd FileType python setlocal expandtab shiftwidth=4 tabstop=4 colorcolumn=79
+      \ formatoptions+=croq softtabstop=4 textwidth=79 autoindent fileformat=unix
       \ cinwords=if,elif,else,for,while,try,except,finally,def,class,with
 augroup END
+autocmd BufRead,BufNewFile *.py,*.pyw,*.c,*.h match ExtraWhitespace /\s\+$/
 
 " jedi-vim
 let g:jedi#popup_on_dot = 0
@@ -610,7 +617,7 @@ let g:jedi#completions_command = "<C-Space>"
 let g:jedi#smart_auto_mappings = 0
 
 " syntastic
-let g:syntastic_python_checkers=['python', 'flake8']
+let g:syntastic_python_checkers=['python', 'flake8', 'pylint']
 
 " vim-airline
 let g:airline#extensions#virtualenv#enabled = 1
@@ -684,3 +691,4 @@ set foldnestmax=20
 let g:header_field_author = 'Jiang Yitao'
 let g:header_field_author_email = 'jiangyt.cn#gmail.com'                                                                                                           
 nnoremap <silent> <F9> :AddHeader<CR>
+let g:header_auto_add_header = 0
