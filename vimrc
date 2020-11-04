@@ -133,7 +133,8 @@ Plug 'jiangytcn/vim-setting'
 
 " vim header setting
 Plug 'alpertuna/vim-header'                                                                                                                                                                                                                                                                                                         
-
+" vim pydocstring
+Plug 'heavenshell/vim-pydocstring', { 'do': 'make install' }
 
 
 "*****************************************************************************
@@ -617,7 +618,7 @@ let g:jedi#completions_command = "<C-Space>"
 let g:jedi#smart_auto_mappings = 0
 
 " syntastic
-let g:syntastic_python_checkers=['python', 'flake8', 'pylint']
+let g:syntastic_python_checkers=['flake8', 'pylint']
 
 " vim-airline
 let g:airline#extensions#virtualenv#enabled = 1
@@ -692,3 +693,8 @@ let g:header_field_author = 'Jiang Yitao'
 let g:header_field_author_email = 'jiangyt.cn#gmail.com'                                                                                                           
 nnoremap <silent> <F9> :AddHeader<CR>
 let g:header_auto_add_header = 0
+
+let g:pydocstring_doq_path = '<change to canonical location>/py3dev/bin/doq'
+nmap <silent> <Leader>doc <Plug>(pydocstring)
+
+
