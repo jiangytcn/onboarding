@@ -61,6 +61,12 @@ mkdir -p ~/tmp/onboarding
 [ ! -d $HOME/bin ] && $(mkdir -p $HOME/bin)
 export PATH=$PATH:$HOME/bin
 pushd ~/tmp/onboarding
+
+# tmux plugin manager
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+# direnv
+curl -sfL https://direnv.net/install.sh | bash 
+
 install_rvm
 install_kube
 export HELM_INSTALL_DIR=$HOME/bin
