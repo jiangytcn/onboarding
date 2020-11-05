@@ -690,11 +690,21 @@ set foldnestmax=20
 
 " file header setting
 let g:header_field_author = 'Jiang Yitao'
-let g:header_field_author_email = 'jiangyt.cn#gmail.com'                                                                                                           
+let g:header_field_author_email = 'jiangyt.cn#gmail.com'
 nnoremap <silent> <F9> :AddHeader<CR>
 let g:header_auto_add_header = 0
 
-let g:pydocstring_doq_path = '<change to canonical location>/py3dev/bin/doq'
+" load doq path from project .vimrc file
+"let g:pydocstring_doq_path = '<change to canonical location>/py3dev/bin/doq'
 nmap <silent> <Leader>doc <Plug>(pydocstring)
+
+" load variables from project vimrc setted by direnv
+"      https://github.com/direnv/direnv/wiki/Vim
+if exists("$EXTRA_VIM")
+  for path in split($EXTRA_VIM, ':')
+    exec "source ".path
+  endfor
+endif
+
 
 
