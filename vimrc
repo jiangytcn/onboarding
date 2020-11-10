@@ -132,9 +132,18 @@ Plug 'Konfekt/FastFold'
 Plug 'jiangytcn/vim-setting'
 
 " vim header setting
-Plug 'alpertuna/vim-header'                                                                                                                                                                                                                                                                                                         
+Plug 'alpertuna/vim-header'
+
 " vim pydocstring
 Plug 'heavenshell/vim-pydocstring', { 'do': 'make install' }
+
+
+" vim nertree highlight
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+
+" Plug 'yegappan/mru'
+
+" Plug 'pbogut/fzf-mru.vim'
 
 
 "*****************************************************************************
@@ -694,9 +703,9 @@ let g:header_field_author_email = 'jiangyt.cn#gmail.com'
 nnoremap <silent> <F9> :AddHeader<CR>
 let g:header_auto_add_header = 0
 
-" load doq path from project .vimrc file
-"let g:pydocstring_doq_path = '<change to canonical location>/py3dev/bin/doq'
+" let g:pydocstring_doq_path = '/home/jiangytcn/github.ibm.com/tornado/py3dev/bin/doq'
 nmap <silent> <Leader>doc <Plug>(pydocstring)
+let g:pydocstring_formatter = 'google'
 
 " load variables from project vimrc setted by direnv
 "      https://github.com/direnv/direnv/wiki/Vim
@@ -706,5 +715,23 @@ if exists("$EXTRA_VIM")
   endfor
 endif
 
+"highlight LineNr guibg=grey
+hi Visual cterm=bold ctermbg=DarkBlue ctermfg=None
 
+noremap <Leader>p "0p
+noremap <Leader>P "0P
+vnoremap <Leader>p "0p"
 
+" fzf vim
+nnoremap <silent> <leader>F :Files<CR>
+nnoremap <silent> <leader>GF :GFiles<CR>
+
+function! s:fzf_statusline()
+  " Override statusline as you like
+  highlight fzf1 ctermfg=161 ctermbg=251
+  highlight fzf2 ctermfg=23 ctermbg=251
+  highlight fzf3 ctermfg=237 ctermbg=251
+  setlocal statusline=%#fzf1#\ ->\ %#fzf2#fz%#fzf3#f
+endfunction
+
+autocmd! User FzfStatusLine call <SID>fzf_statusline()
