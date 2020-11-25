@@ -25,8 +25,8 @@ install_kube() {
 }
 
 install_helm() {
- 	curl -L https://git.io/get_helm.sh | bash
-    $HOME/bin/helm version --client
+ 	curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
+    helm version --client
 }
 
 install_jx() {
