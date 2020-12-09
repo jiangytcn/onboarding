@@ -81,6 +81,7 @@ Plug 'honza/vim-snippets'
 
 "" Color
 Plug 'tomasr/molokai'
+Plug 'morhetz/gruvbox'
 
 "*****************************************************************************
 "" Custom bundles
@@ -91,8 +92,15 @@ Plug 'stephpy/vim-yaml'
 " go
 "" Go Lang Bundle
 Plug 'fatih/vim-go', {'do': ':GoInstallBinaries'}
-Plug 'nsf/gocode', { 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
-
+" Plug 'nsf/gocode', { 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
+"
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
 
 " haskell
 "" Haskell Bundle
@@ -145,6 +153,9 @@ Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
 " Plug 'pbogut/fzf-mru.vim'
 
+
+" vim for rust
+Plug 'rust-lang/rust.vim'
 
 "*****************************************************************************
 "*****************************************************************************
@@ -544,6 +555,12 @@ let g:go_highlight_array_whitespace_error = 0
 let g:go_highlight_trailing_whitespace_error = 0
 let g:go_highlight_extra_types = 1
 
+" let g:go_def_mode='gopls'
+" let g:go_info_mode='gopls'
+
+let g:deoplete#enable_at_startup = 1
+
+
 autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4 softtabstop=4
 
 augroup completion_preview_close
@@ -575,6 +592,7 @@ augroup go
   au FileType go imap <C-g> <esc>:<C-u>GoDecls<cr>
   au FileType go imap <leader>dr <esc>:<C-u>GoDeclsDir<cr>
   au FileType go nmap <leader>rb :<C-u>call <SID>build_go_files()<CR>
+  au filetype go inoremap <buffer> . .<C-x><C-o>
 
 augroup END
 
@@ -627,7 +645,7 @@ let g:jedi#completions_command = "<C-Space>"
 let g:jedi#smart_auto_mappings = 0
 
 " syntastic
-let g:syntastic_python_checkers=['flake8', 'pylint']
+let g:syntastic_python_checkers=['flake8', 'pylint', 'mypy']
 
 " vim-airline
 let g:airline#extensions#virtualenv#enabled = 1
@@ -735,3 +753,8 @@ function! s:fzf_statusline()
 endfunction
 
 autocmd! User FzfStatusLine call <SID>fzf_statusline()
+
+"configure for rust.vim
+let g:rustfmt_autosave = 1
+
+colorscheme gruvbox
