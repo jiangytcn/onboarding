@@ -85,8 +85,9 @@ endif
 Plug 'honza/vim-snippets'
 
 "" Color
-Plug 'tomasr/molokai'
 Plug 'morhetz/gruvbox'
+
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 "*****************************************************************************
 "" Custom bundles
@@ -98,14 +99,24 @@ Plug 'stephpy/vim-yaml'
 "" Go Lang Bundle
 Plug 'fatih/vim-go', {'do': ':GoInstallBinaries'}
 " Plug 'nsf/gocode', { 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
-"
-if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-else
-  Plug 'Shougo/deoplete.nvim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
-endif
+
+" deprecated due to coc
+" if has('nvim')
+"   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" else
+"   Plug 'Shougo/deoplete.nvim'
+"   Plug 'roxma/nvim-yarp'
+"   Plug 'roxma/vim-hug-neovim-rpc'
+" endif
+" set completeopt=longest,menuone
+" augroup completion_preview_close
+"   autocmd!
+"   if v:version > 703 || v:version == 703 && has('patch598')
+"     autocmd CompleteDone * if !&previewwindow && &completeopt =~ 'preview' | silent! pclose | endif
+"   endif
+" augroup END
+" augroup go
+" deprecated due to coc end
 
 " haskell
 "" Haskell Bundle
@@ -161,6 +172,18 @@ Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
 " vim for rust
 Plug 'rust-lang/rust.vim'
+
+
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+let g:rustfmt_autosave = 1
+let g:rust_cargo_use_clippy = 1
+
+" theme
+Plug 'ulwlu/elly.vim'
 
 "*****************************************************************************
 "*****************************************************************************
@@ -229,13 +252,14 @@ let g:session_command_aliases = 1
 "*****************************************************************************
 "" Visual Settings
 "*****************************************************************************
-syntax on
 set ruler
 set number
 
 let no_buffers_menu=1
 if !exists('g:not_finish_vimplug')
-  colorscheme molokai
+	let g:gruvbox_italic=1
+	colorscheme gruvbox
+	set bg=dark    " Setting dark mode
 endif
 
 set mousemodel=popup
@@ -301,7 +325,8 @@ if exists("*fugitive#statusline")
 endif
 
 " vim-airline
-let g:airline_theme = 'powerlineish'
+let g:airline_theme = 'elly'
+" let g:airline_theme = 'powerlineish'
 let g:airline#extensions#syntastic#enabled = 1
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#tabline#enabled = 1
@@ -568,14 +593,6 @@ let g:deoplete#enable_at_startup = 1
 
 autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4 softtabstop=4
 
-augroup completion_preview_close
-  autocmd!
-  if v:version > 703 || v:version == 703 && has('patch598')
-    autocmd CompleteDone * if !&previewwindow && &completeopt =~ 'preview' | silent! pclose | endif
-  endif
-augroup END
-
-augroup go
 
   au!
   au Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
@@ -650,7 +667,7 @@ let g:jedi#completions_command = "<C-Space>"
 let g:jedi#smart_auto_mappings = 0
 
 " syntastic
-let g:syntastic_python_checkers=['flake8', 'pylint', 'mypy']
+let g:syntastic_python_checkers=['flake8', 'pylint']
 
 " vim-airline
 let g:airline#extensions#virtualenv#enabled = 1
@@ -708,12 +725,14 @@ endif
 
 set autowrite
 set noro
+set syntax=on
 " Folding {{{
 set foldenable
 if &diff | set foldmethod=diff | else | set foldmethod=syntax | endif
 set foldlevel=2
 set foldopen=block,hor,tag,percent,mark,quickfix
 set foldnestmax=20
+"}}}
 
 " file header setting
 let g:header_field_author = 'Jiang Yitao'
@@ -757,4 +776,13 @@ autocmd! User FzfStatusLine call <SID>fzf_statusline()
 "configure for rust.vim
 let g:rustfmt_autosave = 1
 
-colorscheme gruvbox
+
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+set t_TI=""
+set t_TE=""
+
+highlight MatchParen cterm=bold ctermbg=25 ctermfg=251
+
+" need to be last
+syntax on
